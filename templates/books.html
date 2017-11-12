@@ -39,12 +39,11 @@
 	Using the API provided by the New York Times, you now have access to the NYT Bestsellers List, as well as a simple to navigate platform to read reviews made by top critics in the field. All books on this site are complete with a short blurb, titles, and even an Amazon url, should you want to acquire it for your personal library.  
       </p>
     </div>
-    {% set count = 0%}
     {% for i in names %}
     <div class = "container" id = {{i[1]}}>
       <h3> {{i[0]}} </h3>
       <p>
-	{% if count == 0 %}
+	{% if loop.index <= 1 %}
 	{% for item in dict%}
 	<b>{{item[0]["title"]}}</b> <br>
 	<i>{{item[0]["descr"]}}</i> <br>
@@ -58,9 +57,8 @@
 	{% endif %}
 	<br><br><br>
 	{% endfor %}
-	{% set count = count + 1%}
 	{% endif %}
-      </p> 
+      </p>
       <br> <br>
     </div>
     {% endfor %}
