@@ -16,8 +16,8 @@ app = Flask(__name__)
 def start():
     #data = urllib2.urlopen("http://api.nytimes.com/svc/books/v3/lists.json?api-key=70995bc868a043d3bd94e12c22604be6")
     #d = json.loads(data.info())
-    print read.get_list_names()[0]
-    return render_template("books.html", names = read.get_list_names())
+    print read.get_booklist()
+    return render_template("books.html", names = read.get_list_names(), dict = read.get_booklist())
 
 #old nasa page from hw #12
 @app.route("/hw12")
