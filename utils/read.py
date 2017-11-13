@@ -11,32 +11,33 @@ def get_list_names():
         list_names.append([name['list_name'], name['list_name'].replace(" ", "-")])
     return list_names
 
-#Returns a dictionary of book details for all Bestseller Lists
+#Returns a outerionary of book details for all Bestseller Lists
 def get_booklist():
     base_url = "http://api.nytimes.com/svc/books/v3/lists.json?api-key=70995bc868a043d3bd94e12c22604be6&list="
-    dict = []
+    outer = []
     names = get_list_names()
     i = 0
-    for name in names:
-        print "\n\n---" +  base_url+name[1] + "---\n\n"
-        data = urllib2.urlopen(base_url+name[1])
-        d = json.loads(data.read())
-        for item in d["results"]:
-            inner = {}
-            print "in"
-            print "\n\n\n"
-            inner["reviews"] = item["reviews"][0]["sunday_review_link"]
-            inner["rank"] = item["rank"]
-            details = item["book_details"][0]
-            inner["publisher"] = details["publisher"]
-            inner["descr"] = details["description"]
-            inner["author"] = details["author"]
-            inner["title"] = details["title"]
-            inner["buy"] = item["amazon_product_url"]
-            dict.append([inner])
-        i += 1
-        if (i >= 2):
-            break
-    print dict
-    return dict
+    try:
+        for name in names:
+            print "\n\n---" +  base_url+name[1] + "---\n\n"
+            data = urllib2.urlopen(base_url+name[1])
+            d = json.loads(data.read())
+            for item in d["results"]:
+                inner = {}
+                inner["reviews"] = item["reviews"][0]["sunday_review_link"]
+                inner["rank"] = item["rank"]
+                details = item["book_details"][0]
+                inner["publisher"] = details["publisher"]
+                inner["descr"] = details["description"]
+                inner["author"] = details["author"]
+                inner["title"] = details["title"]
+                inner["buy"] = item["amazon_product_url"]
+                outer.append([inner])
+            i += 1
+            if (i >= 2):
+                break
+    except:
+        print "too many reqs"
+    print outer
+    return outer
     
